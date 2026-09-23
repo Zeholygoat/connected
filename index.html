@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Connected by Sadab ANNND — Global Mobility Observatory</title>
+<meta name="description" content="Connected by Sadab ANNND — a cinematic global mobility observatory for air, sea, rail and road.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#020406;--panel:rgba(6,11,15,.88);--line:#17252e;--text:#eef5f6;--muted:#7e9099;--air:#5de7ff;--sea:#55f7c0;--rail:#c39bff;--road:#ffd166}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:Manrope,system-ui,sans-serif}body{min-height:100vh;overflow:hidden}
+.app{height:100vh;display:grid;grid-template-rows:68px 1fr 48px}.top,.bottom{background:rgba(2,5,7,.9);backdrop-filter:blur(18px);z-index:30}.top{border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 25px}.brand{display:flex;align-items:center;gap:11px}.orb{width:29px;height:29px;border:1px solid #6b7e87;border-radius:50%;position:relative}.orb:before,.orb:after{content:"";position:absolute;inset:6px;border:1px solid #84949b;border-radius:50%;transform:rotate(60deg)}.orb:after{transform:rotate(-60deg)}.brand strong{font-size:17px;letter-spacing:-.05em}.by{font:9px "DM Mono";color:#71818a;text-transform:uppercase;letter-spacing:.12em;margin-left:7px}.clock{font:10px "DM Mono";color:#a4b1b6}.live{display:inline-flex;align-items:center;margin-right:14px;color:#7d8c94}.live i{width:6px;height:6px;background:#5de7ff;border-radius:50%;box-shadow:0 0 12px #5de7ff;margin-right:6px}
+.main{position:relative;min-height:0}.map{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 46%,#0d1a20,#061014 35%,#020406 76%)}#map{position:absolute;inset:0;width:100%;height:100%;cursor:grab}#map.drag{cursor:grabbing}.veil{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 40%,rgba(0,0,0,.58) 100%)}.scan{position:absolute;inset:0;pointer-events:none;opacity:.18;background-image:linear-gradient(rgba(130,155,165,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(130,155,165,.07) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(ellipse at center,#000 20%,transparent 80%)}
+.toolbar{position:absolute;top:17px;left:19px;right:19px;display:flex;justify-content:space-between;z-index:5}.modes{display:flex;gap:3px;padding:5px;background:var(--panel);border:1px solid #1b2b34;border-radius:12px}.modes button,.tool{border:0;background:transparent;color:#71838c;cursor:pointer;font:10px "DM Mono"}.modes button{padding:9px 12px;border-radius:8px}.modes button.active{background:#122027;color:#f1f7f8;box-shadow:inset 0 0 0 1px #29404b}.modes i{display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor;margin-right:6px}.tools{display:flex;gap:6px}.tool{width:38px;height:38px;border:1px solid #1b2b34;border-radius:10px;background:var(--panel)}.tool:hover{color:#fff;border-color:#3a515d}
+.zoom{position:absolute;left:19px;bottom:25px;z-index:6;display:grid;background:var(--panel);border:1px solid #1c2b34;border-radius:11px;overflow:hidden}.zoom button{width:38px;height:37px;border:0;background:transparent;color:#82939b;font-size:18px;cursor:pointer}.zoom button+button{border-top:1px solid #1a2931}.zoom button:hover{color:#fff;background:#101a20}
+.hero{position:absolute;left:25px;bottom:25px;z-index:4;pointer-events:none;max-width:490px}.eyebrow{font:9px "DM Mono";letter-spacing:.18em;color:#6f8088;text-transform:uppercase;margin-bottom:10px}.hero h1{font-size:clamp(36px,5vw,67px);line-height:.91;letter-spacing:-.07em;margin:0 0 12px}.hero p{font-size:11px;line-height:1.65;color:#7f9098;max-width:405px;margin:0}.hint{font:8px "DM Mono";color:#55656d;margin-top:13px}
+.panel{position:absolute;right:18px;top:68px;width:304px;z-index:8;display:grid;gap:8px}.card{border:1px solid #192a33;background:var(--panel);backdrop-filter:blur(18px);border-radius:13px;padding:13px}.card h3{margin:0 0 10px;font:9px "DM Mono";letter-spacing:.16em;color:#71828b;text-transform:uppercase}.pulse{font:500 29px "DM Mono";letter-spacing:-.07em}.meta{font:9px "DM Mono";color:#61727a;margin-top:2px}.row{display:grid;grid-template-columns:48px 1fr 53px;gap:8px;align-items:center;padding:7px 0;border-top:1px solid #14232a}.row:first-child{border-top:0}.label{font:9px "DM Mono";color:#a0adb2}.bar{height:3px;background:#14232a;border-radius:5px;overflow:hidden}.bar b{display:block;height:100%;border-radius:5px}.num{font:9px "DM Mono";text-align:right;color:#d2dcdf}.legend{display:flex;flex-wrap:wrap;gap:10px}.legend span{font:9px "DM Mono";color:#7e8e96}.legend b{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:5px}.selected{display:none}.selected.show{display:block}.selected strong{font-size:12px}.selected p{font:9px "DM Mono";line-height:1.7;color:#7f9098;margin:5px 0 0}.status{font:9px "DM Mono";color:#73838a;display:flex;justify-content:space-between}.status b{color:#5de7ff;font-weight:500}
+.tooltip{position:absolute;z-index:20;display:none;min-width:190px;padding:10px 12px;background:#071015;border:1px solid #29404b;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,.4);pointer-events:none}.tooltip.show{display:block}.tt-title{font-size:11px;font-weight:700}.tt-meta{font:8px "DM Mono";color:#82939a;line-height:1.7;margin-top:4px}
+.bottom{border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;padding:0 24px;font:9px "DM Mono";color:#52636b}.bottom b{color:#9eacb1;font-weight:500}.footlinks{display:flex;gap:15px}
+@media(max-width:760px){.panel{width:245px}.modes button{padding:9px 8px}.hero{max-width:350px}.by{display:none}}
+@media(max-width:600px){body{overflow:auto}.app{height:100svh;min-height:650px}.panel{left:9px;right:9px;bottom:9px;top:auto;width:auto;grid-template-columns:1fr 1fr}.panel .card:first-child,.panel .card:nth-child(3){display:none}.hero{left:15px;bottom:145px}.hero h1{font-size:41px}.hero p{max-width:330px}.toolbar{left:9px;right:9px}.tools{display:none}.zoom{left:9px;bottom:143px}.bottom{padding:0 12px}.footlinks span:nth-child(2),.footlinks span:nth-child(3){display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top"><div class="brand"><div class="orb"></div><div><strong>Connected</strong><span class="by">by Sadab ANNND</span></div></div><div><span class="live"><i></i>OBSERVATORY</span><span class="clock" id="clock">--:--:-- UTC</span></div></header>
+<main class="main">
+<div class="map"><svg id="map" role="img" aria-label="Interactive world map showing transport movements"></svg><div class="scan"></div><div class="veil"></div>
+<div class="toolbar"><nav class="modes">
+<button class="active" data-mode="all"><i></i>ALL</button><button data-mode="air"><i></i>AIR</button><button data-mode="sea"><i></i>SEA</button><button data-mode="rail"><i></i>RAIL</button><button data-mode="road"><i></i>ROAD</button>
+</nav><div class="tools"><button class="tool" id="pause">Ⅱ</button><button class="tool" id="reset">↺</button></div></div>
+<div class="zoom"><button id="zin">+</button><button id="zout">−</button></div>
+<div class="hero"><div class="eyebrow">Connected / global mobility observatory</div><h1>The planet,<br>in motion.</h1><p>A precise geographic canvas for seeing how the world's transport systems connect. Zoom from continental corridors into dense movement clusters.</p><div class="hint">SCROLL TO ZOOM · DRAG TO PAN · CLICK A MOVEMENT</div></div>
+<aside class="panel">
+<div class="card"><h3>Global pulse</h3><div class="pulse" id="pulse">08,426,931</div><div class="meta">active movement events · visual simulation</div></div>
+<div class="card"><h3>Network frequency</h3>
+<div class="row"><span class="label">AIR</span><div class="bar"><b style="width:78%;background:var(--air)"></b></div><span class="num" id="air">2,418</span></div>
+<div class="row"><span class="label">SEA</span><div class="bar"><b style="width:48%;background:var(--sea)"></b></div><span class="num" id="sea">1,084</span></div>
+<div class="row"><span class="label">RAIL</span><div class="bar"><b style="width:67%;background:var(--rail)"></b></div><span class="num" id="rail">3,221</span></div>
+<div class="row"><span class="label">ROAD</span><div class="bar"><b style="width:92%;background:var(--road)"></b></div><span class="num" id="road">1,703</span></div></div>
+<div class="card selected" id="selected"><h3>Movement</h3><strong id="selTitle">—</strong><p id="selMeta">Click a route or moving node.</p></div>
+<div class="card"><h3>Signal spectrum</h3><div class="legend"><span><b style="background:var(--air)"></b>AIR</span><span><b style="background:var(--sea)"></b>SEA</span><span><b style="background:var(--rail)"></b>RAIL</span><span><b style="background:var(--road)"></b>ROAD</span></div><div style="height:9px"></div><div class="status"><span>DATA LAYER</span><b>SIMULATED · LIVE-READY</b></div></div>
+</aside><div class="tooltip" id="tip"></div>
+</div></div>
+<footer class="bottom"><div class="footlinks"><span>CONNECTED / 03</span><span>WORLD SYSTEMS</span><span>GEOGRAPHIC VISUALISATION</span></div><span>BUILT BY <b>SADAB ANNND</b></span></footer>
+</main>
+<script type="module">
+const [{default:d3},{default:topo}]=await Promise.all([
+import("https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm"),
+import("https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/+esm")
+]);
+const world=await import("https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json/+esm");
+const svg=d3.select("#map"),tip=document.getElementById("tip"),W=()=>document.querySelector(".map").clientWidth,H=()=>document.querySelector(".map").clientHeight;
+let width=W(),height=H(),mode="all",paused=false,zoomK=1;
+const projection=d3.geoNaturalEarth1().translate([width/2,height/2]).scale(Math.min(width/6.0,height/3.1));
+const path=d3.geoPath(projection);
+const root=svg.append("g"),geo=topo.feature(world.default,world.default.objects.countries);
+const land=root.append("g").attr("class","land");
+land.selectAll("path").data(geo.features).join("path").attr("d",path).attr("fill","#081116").attr("stroke","#263943").attr("stroke-width",.45).attr("vector-effect","non-scaling-stroke");
+const borders=root.append("path").datum(topo.mesh(world.default,world.default.objects.countries,(a,b)=>a!==b)).attr("fill","none").attr("stroke","#4a5e67").attr("stroke-opacity",.38).attr("stroke-width",.35);
+root.append("path").datum(d3.geoGraticule()()).attr("fill","none").attr("stroke","#40525b").attr("stroke-opacity",.22).attr("stroke-width",.35);
+const layer=root.append("g");
+const colors={air:"#5de7ff",sea:"#55f7c0",rail:"#c39bff",road:"#ffd166"};
+const city={
+London:[-0.1276,51.5074],NewYork:[-74.006,40.7128],LosAngeles:[-118.2437,34.0522],Tokyo:[139.6917,35.6895],
+Singapore:[103.8198,1.3521],Dubai:[55.2708,25.2048],Mumbai:[72.8777,19.076],Sydney:[151.2093,-33.8688],
+Shanghai:[121.4737,31.2304],HongKong:[114.1694,22.3193],Paris:[2.3522,48.8566],Frankfurt:[8.6821,50.1109],
+Madrid:[-3.7038,40.4168],Barcelona:[2.1734,41.3851],Berlin:[13.405,52.52],Toronto:[-79.3832,43.6532],
+SaoPaulo:[-46.6333,-23.5505],Johannesburg:[28.0473,-26.2041],Cairo:[31.2357,30.0444],Istanbul:[28.9784,41.0082]
+};
+const pts=Object.values(city), keys=Object.keys(city);
+const routes={
+air:[["London","HongKong"],["NewYork","London"],["Dubai","Sydney"],["Tokyo","Singapore"],["LosAngeles","Tokyo"],["Paris","NewYork"],["Frankfurt","Dubai"],["Singapore","Sydney"],["Mumbai","London"],["SaoPaulo","London"],["Toronto","Dubai"],["Johannesburg","Dubai"],["Cairo","London"],["Istanbul","Frankfurt"]],
+sea:[["Shanghai","Singapore"],["Singapore","Dubai"],["Dubai","Suez"],["London","Singapore"],["NewYork","London"],["LosAngeles","Tokyo"],["Mumbai","Singapore"],["SaoPaulo","London"],["Sydney","Singapore"],["HongKong","LosAngeles"]],
+rail:[["London","Paris"],["Paris","Frankfurt"],["Frankfurt","Berlin"],["Berlin","Istanbul"],["Madrid","Barcelona"],["Tokyo","Osaka"],["NewYork","Toronto"],["Mumbai","Delhi"],["Shanghai","Beijing"]],
+road:[["London","Paris"],["Paris","Barcelona"],["Frankfurt","Berlin"],["Tokyo","Osaka"],["NewYork","Toronto"],["LosAngeles","SanFrancisco"],["Mumbai","Delhi"],["Shanghai","Beijing"],["Dubai","AbuDhabi"]]
+};
+Object.assign(city,{Suez:[32.35,30.0],Delhi:[77.1025,28.7041],Osaka:[135.5023,34.6937],Beijing:[116.4074,39.9042],SanFrancisco:[-122.4194,37.7749],AbuDhabi:[54.3773,24.4539]});
+const routeData=[];
+for(const k of Object.keys(routes)) for(const [a,b] of routes[k]) if(city[a]&&city[b]) routeData.push({k,a,b,coords:[city[a],city[b]]});
+const routeLayer=layer.append("g"), pulseLayer=layer.append("g"), nodeLayer=layer.append("g");
+function lineFeature(r){return {type:"LineString",coordinates:r.coords}}
+function renderRoutes(){
+routeLayer.selectAll("*").remove();
+const data=routeData.filter(d=>mode==="all"||d.k===mode);
+routeLayer.selectAll("path").data(data).join("path").attr("d",d=>path(lineFeature(d))).attr("fill","none").attr("stroke",d=>colors[d.k]).attr("stroke-opacity",mode==="all"?.22:.62).attr("stroke-width",mode==="all"?.7:1.25).attr("stroke-linecap","round").attr("stroke-dasharray",d=>mode==="all"?"2 7":"4 5");
+nodeLayer.selectAll("*").remove();
+const used=[...new Set(data.flatMap(d=>[d.a,d.b]))];
+nodeLayer.selectAll("circle").data(used).join("circle").attr("cx",d=>projection(city[d])[0]).attr("cy",d=>projection(city[d])[1]).attr("r",mode==="all"?1.7:2.5).attr("fill",mode==="all"?"#9eb2ba":"#fff").attr("opacity",.75);
+}
+renderRoutes();
+let particles=[];
+function seed(){particles=[];for(const r of routeData){const count=r.k==="air"?5:r.k==="sea"?4:r.k==="rail"?4:5;for(let i=0;i<count;i++)particles.push({r,t:Math.random(),speed:.000018+Math.random()*.000035,phase:Math.random()*6.28})}}
+seed();
+function pulseCluster(){
+pulseLayer.selectAll("*").remove();
+const grouped={};
+routeData.forEach(r=>{const p=projection(city[r.a]),q=projection(city[r.b]);[p,q].forEach(z=>{const key=Math.round(z[0]/32)+":"+Math.round(z[1]/32);grouped[key]=(grouped[key]||0)+1})});
+Object.entries(grouped).filter(([,n])=>n>2).forEach(([key,n])=>{const [gx,gy]=key.split(":").map(Number),x=gx*32,y=gy*32;
+pulseLayer.append("circle").attr("cx",x).attr("cy",y).attr("r",4+Math.min(n,8)).attr("fill","none").attr("stroke","#8deaff").attr("stroke-opacity",.16).attr("stroke-width",1).append("animate").attr("attributeName","r").attr("from",4).attr("to",20+Math.min(n,15)).attr("dur","2.4s").attr("repeatCount","indefinite");
+pulseLayer.append("circle").attr("cx",x).attr("cy",y).attr("r",2).attr("fill","#dffcff").attr("opacity",.55);
+})}
+pulseCluster();
+function tick(now){if(!paused){particles.forEach(p=>p.t=(p.t+p.speed*(now%1000+16))%1)}layer.selectAll(".particle").remove();const data=particles.filter(p=>mode==="all"||p.r.k===mode);
+layer.selectAll(".particle").data(data).join("circle").attr("class","particle").attr("r",mode==="all"?1.8:2.7).attr("fill",d=>colors[d.r.k]).attr("filter","url(#glow)").attr("cx",d=>projection(d3.geoInterpolate(d.r.coords[0],d.r.coords[1])(d.t))[0]).attr("cy",d=>projection(d3.geoInterpolate(d.r.coords[0],d.r.coords[1])(d.t))[1]);
+requestAnimationFrame(tick)}
+const defs=svg.append("defs");const f=defs.append("filter").attr("id","glow");f.append("feGaussianBlur").attr("stdDeviation","2").attr("result","b");const merge=f.append("feMerge");merge.append("feMergeNode").attr("in","b");merge.append("feMergeNode").attr("in","SourceGraphic");
+requestAnimationFrame(tick);
+function redraw(){width=W();height=H();projection.translate([width/2,height/2]).scale(Math.min(width/6.0,height/3.1)*zoomK);land.selectAll("path").attr("d",path);borders.attr("d",path);root.select("path:nth-of-type(2)").attr("d",path);renderRoutes();pulseCluster()}
+window.addEventListener("resize",redraw);
+svg.call(d3.zoom().scaleExtent([.72,5.2]).on("zoom",e=>{root.attr("transform",e.transform);}));
+document.getElementById("zin").onclick=()=>svg.transition().duration(450).call(d3.zoom().scaleBy,1.55);
+document.getElementById("zout").onclick=()=>svg.transition().duration(450).call(d3.zoom().scaleBy,.65);
+document.getElementById("pause").onclick=e=>{paused=!paused;e.currentTarget.textContent=paused?"▶":"Ⅱ"};
+document.getElementById("reset").onclick=()=>{svg.transition().duration(450).call(d3.zoom().transform,d3.zoomIdentity);seed();zoomK=1};
+document.querySelectorAll(".modes button").forEach(b=>b.onclick=()=>{mode=b.dataset.mode;document.querySelectorAll(".modes button").forEach(x=>x.classList.toggle("active",x===b));renderRoutes();pulseCluster();document.getElementById("dataLayer").textContent=(mode==="all"?"SIMULATED":mode.toUpperCase()+" · SIMULATED")});
+const pulse=document.getElementById("pulse");let total=8426931;
+setInterval(()=>{total+=Math.floor(Math.random()*140-35);pulse.textContent=Math.max(0,total).toLocaleString();["air","sea","rail","road"].forEach((k,i)=>document.getElementById(k).textContent=(1200+i*620+Math.floor(Math.random()*260)).toLocaleString());document.getElementById("clock").textContent=new Date().toISOString().slice(11,19)+" UTC"},1200);
+svg.on("click",(event)=>{
+const [mx,my]=d3.pointer(event),inv=projection.invert([mx,my]);if(!inv)return;let best=null,bd=Infinity;
+routeData.filter(d=>mode==="all"||d.k===mode).forEach(r=>{const p=projection(r.coords[0]),q=projection(r.coords[1]);const vx=q[0]-p[0],vy=q[1]-p[1],l=vx*vx+vy*vy||1,t=Math.max(0,Math.min(1,((mx-p[0])*vx+(my-p[1])*vy)/l)),x=p[0]+t*vx,y=p[1]+t*vy,d=Math.hypot(mx-x,my-y);if(d<bd){bd=d;best=r}});
+if(best&&bd<18){document.getElementById("selected").classList.add("show");document.getElementById("selTitle").textContent=best.k.toUpperCase()+" · "+best.a+" → "+best.b;document.getElementById("selMeta").textContent="Route corridor · animated movement · "+(best.k==="air"?"great-circle flight path":"network corridor")+" · visual simulation";}});
+document.getElementById("map").addEventListener("wheel",e=>e.preventDefault(),{passive:false});
+</script>
+</body></html>
